@@ -1,0 +1,7 @@
+version: '1'
+
+services:
+    super-hero-server:
+      image: farins/superherodemoapp:latest
+      ports:
+        - '8080:8080'
