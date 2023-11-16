@@ -49,8 +49,9 @@ public class SuperheroServiceImpl implements SuperheroService {
     public void delete(Long id) {
         if (superheroRepository.existsById(id)) {
             superheroRepository.deleteById(id);
+        } else {
+            throw new EntityNotFoundException(format("Entity with id %s not found", id));
         }
-        throw new EntityNotFoundException(format("Entity with id %s not found", id));
     }
 
     @Override
