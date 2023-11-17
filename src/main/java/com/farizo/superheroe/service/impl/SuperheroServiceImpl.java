@@ -6,6 +6,8 @@ import com.farizo.superheroe.service.CreateRequest;
 import com.farizo.superheroe.service.SuperheroService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,6 +30,7 @@ public class SuperheroServiceImpl implements SuperheroService {
     }
 
     @Override
+    @Cacheable(Superhero.NAME)
     public Superhero findById(Long id) {
         return superheroRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(format("Entity with id %s not found", id)));
@@ -46,6 +49,7 @@ public class SuperheroServiceImpl implements SuperheroService {
     }
 
     @Override
+    @CacheEvict(Superhero.NAME)
     public void delete(Long id) {
         if (superheroRepository.existsById(id)) {
             superheroRepository.deleteById(id);
@@ -56,6 +60,7 @@ public class SuperheroServiceImpl implements SuperheroService {
 
     @Override
     @Transactional
+    @CacheEvict(value = Superhero.NAME, key = "id")
     public Superhero update(Long id, CreateRequest updateRequest) {
         Superhero superhero = this.findById(id);
         superhero.setName(updateRequest.getName());

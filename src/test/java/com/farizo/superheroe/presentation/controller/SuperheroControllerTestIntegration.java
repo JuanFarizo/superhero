@@ -101,7 +101,7 @@ class SuperheroControllerTestIntegration {
 
     @Test
     void givenIdWhenDeleteThenReturnOk() {
-        Long superheroId = 1L;
+        Long superheroId = 3L;
         ResponseEntity<Superhero> response = template.exchange(
                 CONTEXT_PATH + "/" + superheroId,
                 DELETE,
