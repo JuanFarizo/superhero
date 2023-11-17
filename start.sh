@@ -8,7 +8,7 @@ docker build -t farins/superherodemoapp:latest -f ./Dockerfile ./
 
 docker-compose up -d
 
-echo "Docker compose up. Waiting to run migrations"
+echo "Docker compose up. Running Migrations Soon"
 sleep 10
 
 mvn flyway:migrate -f ./pom.xml
