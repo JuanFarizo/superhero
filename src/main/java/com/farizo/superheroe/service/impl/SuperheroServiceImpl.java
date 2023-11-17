@@ -7,6 +7,7 @@ import com.farizo.superheroe.service.SuperheroService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
@@ -60,7 +61,7 @@ public class SuperheroServiceImpl implements SuperheroService {
 
     @Override
     @Transactional
-    @CacheEvict(value = Superhero.NAME, key = "id")
+    @CachePut(value = Superhero.NAME, key = "#id")
     public Superhero update(Long id, CreateRequest updateRequest) {
         Superhero superhero = this.findById(id);
         superhero.setName(updateRequest.getName());
